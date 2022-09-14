@@ -11,7 +11,7 @@ public class Operators
         string words = "";
         float sim = score;
         
-        for (var i = 0; i < query.Length; i++)
+        for (var i = 0; i < query.Length; i++)  //Guarda en una lista las palabras que tienen el operador delante
         {
             if (query[i] == oparator[0])
             {
@@ -38,15 +38,12 @@ public class Operators
 
         for (int i = 0; i < WordsWithOps.Count; i++)
         {
-            words += WordsWithOps[i] + " ";
-            
+            words += WordsWithOps[i] + " ";    
         }
         chain = DataBase.WithoutSpaces(words);
 
 
-
-
-        if (oparator == "!")
+        if (oparator == "!")    //Hace 0 el score del documento que contiene la palabra en caso de este operador
         {
             for (int i = 0; i < chain.Length; i++)
             {
@@ -56,7 +53,7 @@ public class Operators
                 }
             }
         }
-        else if (oparator == "^")
+        else if (oparator == "^") //Aumenta el score del documento si contiene la palabra, y lo hace 0 en caso de no contenerla
         {
             for (int i = 0; i < chain.Length; i++)
             {
@@ -70,7 +67,7 @@ public class Operators
                 
             }
         }
-        if (oparator == "*")
+        if (oparator == "*") //Aumenta el score del documento que contenga la palabra
         {  
             for (int i = 0; i < chain.Length; i++)
             {   
@@ -94,7 +91,7 @@ public class Operators
         string words = "";
         float sim = score;
         
-        for (var i = 0; i < query.Length; i++)
+        for (var i = 0; i < query.Length; i++) //Guarda en una lista las palabras modificadas con el operador
         {
             if (query[i] == oparator[0])
             {    
@@ -131,7 +128,7 @@ public class Operators
         }
         chain = DataBase.WithoutSpaces(words);
 
-        for (var p = 0; p < chain.Length; p=p+2)
+        for (var p = 0; p < chain.Length; p=p+2) // Modifica el score del documento que  contenga ambas palabras, mientras mas cercanas esten mayor sera el score
         {
             if (DataBase.Documents[pos].ContainsKey( chain[p]) && DataBase.Documents[pos].ContainsKey( chain[p+1]))
             {
@@ -167,7 +164,7 @@ public class Operators
                 sim += (float)1/min;            
             }            
         }
-        if (sim == score)
+        if (sim == score) // Si alguna de las palabras no se encuentran disminuye el score del documento
         {
             sim = sim/2;
         }

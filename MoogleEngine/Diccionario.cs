@@ -55,67 +55,53 @@ namespace MoogleEngine;
 
         }
 
-        public static string [] Textos ()
+        public static string [] Textos ()   //Guarda el contenido de cada documento en um array
         {
             string url = Directory.GetCurrentDirectory();                                                      //carga el url donde se encuentran ubicados los documentos
             string[] names = Directory.EnumerateFiles(url.Substring(0,url.Length-13)+"/Content").ToArray();    //guarda cada documento en un array
-            var Relleno = new List<string>();  
-
+            var stuffed = new List<string>();  
 
             for(int i = 0;i<names.Length; i++)
             {
                 StreamReader reader = new StreamReader(names[i]);
                 string content = reader.ReadToEnd();
-                Relleno.Add (content);               
+                stuffed.Add (content);               
 
             }
-            var con = Relleno.ToArray(); 
-            return con;
+            var Content = stuffed.ToArray(); 
+            return Content;
         }
         public static List<Dictionary<string,int>> Words4Docs ()   //Lista que almacena la cantidad de repeticiones de cada palabra por documento
-        {
-            
+        {     
             var Frec = new List<Dictionary<string,int>>();  
 
             for(int i = 0;i < Content.Length; i++)
-            {                  //lee el documento
+            {                  
                 List<string> words = WithoutSpaces(Content[i]).ToList();               
-
                 Dictionary<string,int> WordsFrec = new Dictionary<string, int>();
-                
-                
+                 
                 //recorre la lista y guarda cada palabra con su frecuencia en un diccionario
                 for (int y = 0; y < words.Count;y++)
                 {
                     if (WordsFrec.ContainsKey(words[y]))
                     {
                         WordsFrec[words[y]]++;
-
                     }
                     else
                     {
                         WordsFrec.Add(words[y], 1);
                     }
-
-
                 }
                 Frec.Add(WordsFrec);
 
             }
-            
             return Frec;
-
         }
         public static Dictionary<string,int> Frec ()
         {
+            Dictionary<string,int> FrecWordInDocs = new Dictionary<string, int>();   
             
-
-            Dictionary<string,int> FrecWordInDocs = new Dictionary<string, int>();
-
-            
-            
-            //recorre la lista de diccionarios
-            for(int i = 0; i< Documents.Count; i++)
+            for(int i = 0; i < Documents.Count; i++)
             {
                 foreach (var j in Documents[i])
                 {
@@ -128,11 +114,6 @@ namespace MoogleEngine;
                         FrecWordInDocs.Add(j.Key, 1);
                     }
                 }
-                
-
-
-                
-                
             }
             return FrecWordInDocs;
         }
@@ -149,8 +130,7 @@ namespace MoogleEngine;
                     {
                         dic.Add(j.Key, temp);
                         temp++;
-                    }
-                    
+                    }            
                 }   
             }
             return dic;
