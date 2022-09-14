@@ -20,10 +20,10 @@ namespace MoogleEngine;
 
         public DataBase ()
         {
-            Content = Textos();
+            Content = Texts();
             Documents = Words4Docs();
             Frecuency = Frec();
-            Position = lista();
+            Position = List();
             MatrixTFIDF = TheMatrix();     
         }
 
@@ -55,7 +55,7 @@ namespace MoogleEngine;
 
         }
 
-        public static string [] Textos ()   //Guarda el contenido de cada documento en um array
+        public static string [] Texts ()   //Guarda el contenido de cada documento en um array
         {
             string url = Directory.GetCurrentDirectory();                                                      //carga el url donde se encuentran ubicados los documentos
             string[] names = Directory.EnumerateFiles(url.Substring(0,url.Length-13)+"/Content").ToArray();    //guarda cada documento en un array
@@ -117,7 +117,7 @@ namespace MoogleEngine;
             }
             return FrecWordInDocs;
         }
-        public static Dictionary<string,int> lista ()
+        public static Dictionary<string,int> List ()
         {
             var dic = new Dictionary<string,int>();
             int temp = 0;
