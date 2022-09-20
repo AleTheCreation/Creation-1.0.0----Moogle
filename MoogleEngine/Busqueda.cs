@@ -9,9 +9,6 @@ public class FinalResult
 {
     public static SearchItem[] buscar (string query)
     {  
-        
-
-
         var score = new List<float>();
         var titles = new List<string>();
         var snipett = new List <string>();
@@ -34,10 +31,7 @@ public class FinalResult
             index = Array.IndexOf(copy, tmp);
             ImportantWord =  DataBase.Position.ElementAt(index).Key;
             MostImportantsWords.Add(ImportantWord , t);
-            copy[index] = 0;
-            
-
-            
+            copy[index] = 0;      
         }
         for (int i = 0; i <DataBase.Documents.Count; i++)
         {
@@ -196,7 +190,7 @@ public class FinalResult
             results.Add(temp);
         }
           
-        foreach (var item in query)         //Uso de Operators
+        foreach (var item in query)         //Uso de Operadores
         {
             if (item == '!')
             {

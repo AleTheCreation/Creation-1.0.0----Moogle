@@ -48,12 +48,14 @@ public class SearchQuery
         double length = QueryFixed.Count;
         int length2 = DataBase.Frecuency.Count;
         int length3 = DataBase.Documents.Count;
+        string Suggest = "";
 
         for (int i = 0; i < length; i++)
         {
             double val = QueryFixed.ElementAt(i).Value;
             string key = QueryFixed.ElementAt(i).Key;
-               
+            string temp = "";
+
             if (DataBase.Frecuency.ContainsKey(key))
             {
                 for (var g = 0; g < length2; g++)
@@ -73,8 +75,45 @@ public class SearchQuery
                     compare[g] = TFIDF ;
                     break;                    
                 }
-            }        
+                temp = key;
+            }
+            else
+            {
+                string Possible = Suggestion(key);
+                for (var g = 0; g < length2; g++)
+                {
+                    int val2 = DataBase.Frecuency.ElementAt(g).Value;
+                    string key2 = DataBase.Frecuency.ElementAt(g).Key;
+
+                    if (compare[g]!=0 || key != key2)
+                    {
+                        continue;
+                    }
+                    
+                    double TF = val/length;
+                    double IDF = Math.Log10(length3/val2);
+                    TI = TF * IDF;
+                    TFIDF = (float)TI;
+                    compare[g] = TFIDF ;
+                    break;                    
+                }
+                temp = Possible;
+
+            } 
+            if (i != 0 && i != length - 1)
+            {
+                Suggest += temp + " ";
+            }
+            else if (i == length - 1)
+            {
+                Suggest += temp;
+            }
+            else if (i == 0)
+            {
+                Suggest = temp + " ";
+            }       
         }
+        YouMeanThis = Suggest;
             
         if(compare.Max() == 0)
         {     
@@ -146,15 +185,16 @@ public class SearchQuery
     }
 
     public static string Suggestion (string query)
-    {
-        int changes = int.MaxValue;
+    {  
         var Suggestion1 = new List<string>();
-        for (var i = 0; i < QueryFixed.Count; i++)
+        string Suggestion2 = "";
+        for (var i = 0; i < query.Length; i++)
         {
-            var Similar = SimilarDistance(DataBase.Frecuency, QueryFixed.ElementAt(i).Key.Length);
+            int changes = int.MaxValue;
+            var Similar = SimilarDistance(DataBase.Frecuency, query.Length);
             for (var j = 0; j < Similar.Count; j++)
             {
-                int dist = Levenshtein(QueryFixed.ElementAt(i).Key, Similar[j]);
+                int dist = Levenshtein(query, Similar[j]);
                 if (dist < changes)
                 {
                     changes = dist;
@@ -166,47 +206,26 @@ public class SearchQuery
                     Suggestion1.Add(Similar[j]);
 
                 }
+                
             }
-        }
-        string Suggestion2 = "";
-        for (int m = 0; m < Suggestion1.Count; m++)
-        {
-            if (m != 0 && m != Suggestion1.Count - 1)
-            {
-                Suggestion2 += Suggestion1[m] + " ";
-            }
-            else if (m == Suggestion1.Count - 1)
-            {
-                Suggestion2 += Suggestion1[m];
-            }
-            else if (m == 0)
-            {
-                Suggestion2 = Suggestion1[m] + " ";
-            }
+            Suggestion2 = Suggestion1[0];
         }
         
         return Suggestion2;
     }
+    
 
-    public static string IsThisYourQuery (float[] vector)
+    /*public static string IsThisYourQuery (float[] vector)
     {
         int index = Array.IndexOf(QueryVector , QueryVector.Max());
         string Sugg = DataBase.Frecuency.ElementAt(index).Key;
         return Sugg;
-    }
+    }*/
 
     public SearchQuery (string query)
     {
         QueryFixed = Organize(query);
         QueryVector = Matches();
-        if (QueryVector.Length == 0)
-        {
-            PossibleWords = Suggestion(query);
-            QueryFixed = Organize(PossibleWords);
-            QueryVector = Matches();
-            YouMeanThis = IsThisYourQuery(QueryVector);
-
-        }
     }
 }
     
