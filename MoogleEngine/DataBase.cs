@@ -39,14 +39,14 @@ namespace MoogleEngine;
                 Regex o =new Regex("[ó|ò|ö|ô]");
                 Regex u =new Regex("[ú|ù|ü|û]");
                 Regex n =new Regex("[ñ|Ñ]");
-               // Regex space =new Regex("[ ]");
+               
             
                 string filtro0 = a.Replace(txt, "a");
                 string filtro1 = e.Replace(filtro0, "e");
                 string filtro2 = i.Replace(filtro1, "i");
                 string filtro3 = o.Replace(filtro2, "o");
                 string filtro4 = u.Replace(filtro3, "u");
-               // string filtro5 = space.Replace(filtro4, "");
+              
                 string filtrado = n.Replace(filtro4, "n");
             
             string [] ws = filtrado.Split(' ','.',',',':',';','\r','\n','\t','\\','/','!','?','¡','¿','(',')','[',']','{','}','<','>','"','\'','_','+','-','*','&','^','%','$','#','@','~','`','|', '=');

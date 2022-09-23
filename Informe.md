@@ -47,40 +47,40 @@ Esta clase contiene 3 propiedades
 
 **[Operators](MoogleEngine\Operators.cs)**
 > Metodo *OperatorWord* 
-  .Recibe la query, el operador y la posicion del operador en la query
+  .Recibe la query, el operador y la posicion del operador en la query.
   .Guarda la palabra inmediata luego del operador.
 
 > Metodo *OperatorWords*
-  .Recibe la query, el operador y la posicion del operador en la query, es usado especificamente para el operador de cercania
+  .Recibe la query, el operador y la posicion del operador en la query, es usado especificamente para el operador de cercania.
   .Guarda la primera palabra antes y la primera palabra despues del operador de cercania.
 
 > Metodo *Ops*
  .Si el score es 0 al comienzo devuelve score 0
- .Guarda en un string la palabra devuelta por el metodo OperatorWord
- .En caso de que el operador sea de negacion devuelve un score 0
- .En caso de que el oprador sea de prioridad le suma 1 al score si el documento contiene la palabra, si no la contiene, devuelve score 0
+ .Guarda en un string la palabra devuelta por el metodo OperatorWord.
+ .En caso de que el operador sea de negacion devuelve un score 0.
+ .En caso de que el oprador sea de prioridad le suma 1 al score si el documento contiene la palabra, si no la contiene, devuelve score 0.
  .Devuelve el score.
 
 > Metodo *Ops2*
- .Utilizado para el operador de cercania
- .Guarda en una lista las palabras devueltas por el metodo OperatorWords
- .Si la dimension de esa lista no es 2, devuelve el score original
- .En caso de encontrarse las dos palabras en el documento le suma al score 1 entre la menor distancia entre las palabras
+ .Utilizado para el operador de cercania.
+ .Guarda en una lista las palabras devueltas por el metodo OperatorWords.
+ .Si la dimension de esa lista no es 2, devuelve el score original.
+ .En caso de encontrarse las dos palabras en el documento le suma al score 1 entre la menor distancia entre las palabras.
  .Si no las contiene divide entre dos el score;
  .Devuelve el score.
 
 > Metodo *Ops3*
  .Utilizado para el operador de prioridad acumulativo
- .Guarda en un string la palabra devuelta por el metodo OperatorWord
+ .Guarda en un string la palabra devuelta por el metodo OperatorWord.
  .Si la similitud es 0 devuelve la similitud original
- .Mientras mas '*' existan aumenta un contador el cual es multiplicado por (score + 1)
- .Devuelve el score .
+ .Mientras mas '*' existan aumenta un contador el cual es multiplicado por (score + 1).
+ .Devuelve el score.
 
 **[Moogle](MoogleEngine\Moogle.cs)**
 > Aplicando el metodo SearchResult desde el cual llamo a la base de datos, lo que provoca que cargue la misma una sola vez
- .Recorre una copia de "results" y elimina todo aquel documento que tenga snippet vacio
- .Compara si la sugerencia es igual al query, si lo es la sugerencia sera vacia
- Devuelve la busqueda
+ .Recorre una copia de "results" y elimina todo aquel documento que tenga snippet vacio.
+ .Compara si la sugerencia es igual al query, si lo es la sugerencia sera vacia.
+ Devuelve la busqueda, y en caso de existir sugerencia la muestra.
 
 ### Modelo Vectorial
  La idea básica de este modelo de recuperación vectorial reside en la construcción de una matriz (podría llamarse tabla) de términos y documentos, donde las filas fueran estos últimos y las columnas correspondieran a los términos incluidos en ellos. Las filas de esta matriz (que en términos algebraicos se denominan vectores) serían equivalentes a los documentos que se expresarían en función de las apariciones (frecuencia) de cada término. De esta manera, un documento podría expresarse de la siguiente manera:
