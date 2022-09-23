@@ -21,10 +21,13 @@ namespace MoogleEngine;
         public DataBase ()
         {
             Content = Texts();
-            Documents = Words4Docs();
-            Frecuency = Frec();
-            Position = List();
-            MatrixTFIDF = TheMatrix();     
+            if (Content.Length != 0)
+            {
+                Documents = Words4Docs();
+                Frecuency = Frec();
+                Position = List();
+                MatrixTFIDF = TheMatrix();  
+            }   
         }
 
         //Clase para eliminar separadores de palabras
@@ -61,6 +64,10 @@ namespace MoogleEngine;
         {
             string url = Directory.GetCurrentDirectory();                                                      //carga el url donde se encuentran ubicados los documentos
             string[] names = Directory.EnumerateFiles(url.Substring(0,url.Length-13)+"/Content").ToArray();    //guarda cada documento en un array
+            if (names.Length == 0)
+            {
+                return names;
+            }
             var stuffed = new List<string>();  
 
             for(int i = 0;i<names.Length; i++)

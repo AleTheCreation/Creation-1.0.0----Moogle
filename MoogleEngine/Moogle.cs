@@ -4,7 +4,13 @@ public static class Moogle
 {
     public static SearchResult Query(string query , DataBase docs) {
     
-       
+        if (DataBase.Content.Length == 0)
+        {
+            var Search = new SearchItem[1];
+            SearchItem answer = new SearchItem ("Tu Base de Datos esta vacia, compruebalo", "", 1) ;
+            Search[0] = answer;
+            return new SearchResult (Search , "");
+        }
         var Searching = new SearchQuery (query);
        
         SearchItem[] Test1 = FinalResult.buscar(query);
