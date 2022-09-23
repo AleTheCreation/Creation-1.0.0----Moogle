@@ -39,12 +39,14 @@ namespace MoogleEngine;
                 Regex o =new Regex("[ó|ò|ö|ô]");
                 Regex u =new Regex("[ú|ù|ü|û]");
                 Regex n =new Regex("[ñ|Ñ]");
+               // Regex space =new Regex("[ ]");
             
                 string filtro0 = a.Replace(txt, "a");
                 string filtro1 = e.Replace(filtro0, "e");
                 string filtro2 = i.Replace(filtro1, "i");
                 string filtro3 = o.Replace(filtro2, "o");
                 string filtro4 = u.Replace(filtro3, "u");
+               // string filtro5 = space.Replace(filtro4, "");
                 string filtrado = n.Replace(filtro4, "n");
             
             string [] ws = filtrado.Split(' ','.',',',':',';','\r','\n','\t','\\','/','!','?','¡','¿','(',')','[',']','{','}','<','>','"','\'','_','+','-','*','&','^','%','$','#','@','~','`','|', '=');
@@ -55,7 +57,7 @@ namespace MoogleEngine;
 
         }
 
-        public static string [] Texts ()   //Guarda el contenido de cada documento en um array
+        private static string [] Texts ()   //Guarda el contenido de cada documento en um array
         {
             string url = Directory.GetCurrentDirectory();                                                      //carga el url donde se encuentran ubicados los documentos
             string[] names = Directory.EnumerateFiles(url.Substring(0,url.Length-13)+"/Content").ToArray();    //guarda cada documento en un array
@@ -71,7 +73,7 @@ namespace MoogleEngine;
             var Content = stuffed.ToArray(); 
             return Content;
         }
-        public static List<Dictionary<string,int>> Words4Docs ()   //Lista que almacena la cantidad de repeticiones de cada palabra por documento
+        private static List<Dictionary<string,int>> Words4Docs ()   //Lista que almacena la cantidad de repeticiones de cada palabra por documento
         {     
             var Frec = new List<Dictionary<string,int>>();  
 
@@ -97,7 +99,7 @@ namespace MoogleEngine;
             }
             return Frec;
         }
-        public static Dictionary<string,int> Frec ()
+        private static Dictionary<string,int> Frec ()
         {
             Dictionary<string,int> FrecWordInDocs = new Dictionary<string, int>();   
             
@@ -117,7 +119,7 @@ namespace MoogleEngine;
             }
             return FrecWordInDocs;
         }
-        public static Dictionary<string,int> List ()
+        private static Dictionary<string,int> List ()
         {
             var dic = new Dictionary<string,int>();
             int temp = 0;
@@ -135,7 +137,7 @@ namespace MoogleEngine;
             }
             return dic;
         }
-        public static float[,] TheMatrix ()
+        private static float[,] TheMatrix ()
         { 
             float[,] matrix = new float[Documents.Count, Frecuency.Count];
 

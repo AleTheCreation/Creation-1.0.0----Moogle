@@ -15,11 +15,15 @@ public class SearchQuery
 
     public static float[] QueryVector;
 
-    public static string PossibleWords;
-
     public static string YouMeanThis;
 
-    public static Dictionary<string,int> Organize(string query)
+    public SearchQuery (string query)
+    {
+        QueryFixed = Organize(query);
+        QueryVector = Matches();
+    }
+
+    private static Dictionary<string,int> Organize(string query)
     {
         
         string[] Fixed = DataBase.WithoutSpaces(query);
@@ -40,7 +44,7 @@ public class SearchQuery
         return CantPal;
     }
 
-    public static float[] Matches ()
+    private static float[] Matches ()
     {
         float[] compare = new float[DataBase.Frecuency.Count];   
         double TI = 0;
@@ -124,7 +128,7 @@ public class SearchQuery
         return compare;
     }
   
-    public static int Levenshtein(string s1, string s2)
+    private static int Levenshtein(string s1, string s2)
     {
         int cost = 0;
         int n1 = s1.Length;
@@ -169,7 +173,7 @@ public class SearchQuery
 
     }
     
-    public static List<string> SimilarDistance (Dictionary<string, int> AllWords , int Distance)
+    private static List<string> SimilarDistance (Dictionary<string, int> AllWords , int Distance)
     {
         var Similar = new List<string>();
         List<string> Words = AllWords.Keys.ToList();
@@ -184,7 +188,7 @@ public class SearchQuery
         return Similar;
     }
 
-    public static string Suggestion (string query)
+    private static string Suggestion (string query)
     {  
         var Suggestion1 = new List<string>();
         string Suggestion2 = "";
@@ -215,17 +219,6 @@ public class SearchQuery
     }
     
 
-    /*public static string IsThisYourQuery (float[] vector)
-    {
-        int index = Array.IndexOf(QueryVector , QueryVector.Max());
-        string Sugg = DataBase.Frecuency.ElementAt(index).Key;
-        return Sugg;
-    }*/
 
-    public SearchQuery (string query)
-    {
-        QueryFixed = Organize(query);
-        QueryVector = Matches();
-    }
 }
     

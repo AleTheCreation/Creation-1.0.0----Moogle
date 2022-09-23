@@ -2,11 +2,26 @@
 
 <PageTitle>Moogle!</PageTitle>
 
-<h1>🔍 Moogle!</h1>
+<body>
+<div class="Iam">
 
-<input class="p-1 my-4" @bind="query" placeholder="Introduzca su búsqueda">
+<p>This is</p>
+<b>
+  <div class="innerIam">
+    Moogle!<br /> 
+    a new way<br />
+    to search<br />
+    by...<br />
+    Alejandro!
+    </div>
+</b>
 
-<button type="default" class="btn btn-primary" @onclick="RunQuery">🔍 Buscar</button>
+</div>
+</body>
+
+<input class="input" name="text"  @bind="query" placeholder="Search Here!">
+
+<button type="default" class="btn btn-primary" @onclick="RunQuery">🔍 Touch</button>
 
 @if (!string.IsNullOrEmpty(result.Suggestion)) {
     <div class="suggestion">
@@ -17,10 +32,10 @@
 <ul class="results">
 @foreach (var item in result.Items()) {
     <li>
-        <div class="item">
-            <p class="title">@item.Title</p>
-            <p>... @item.Snippet ...</p>
-        </div>
+         <div class="item">
+            <p class="title"><p style="color: #e74c3c;">@item.Title</p></p>
+            <p style="color: #e8e8e8;">... @item.Snippet ...</p> 
+        </div> 
     </li>
 }
 </ul>

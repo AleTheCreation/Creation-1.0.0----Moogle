@@ -3,7 +3,8 @@
 public static class Moogle
 {
     public static SearchResult Query(string query , DataBase docs) {
-
+    
+       
         var Searching = new SearchQuery (query);
        
         SearchItem[] Test1 = FinalResult.buscar(query);
@@ -17,7 +18,23 @@ public static class Moogle
             }
         } 
         var items = Test2.ToArray();
-
+        var temp = DataBase.WithoutSpaces(SearchQuery.YouMeanThis);
+        var temp2 = DataBase.WithoutSpaces(query);
+        int count = 0;
+        if (temp.Length == temp2.Length)
+        {
+            for (int i = 0; i < temp.Length; i++)
+            {
+                if (temp[i] != temp2[i])
+                {
+                    count++;
+                }
+            }
+        }
+        if (count == 0)
+        {
+            return new SearchResult(items, "");
+        }
         return new SearchResult(items, SearchQuery.YouMeanThis);
     }
 }

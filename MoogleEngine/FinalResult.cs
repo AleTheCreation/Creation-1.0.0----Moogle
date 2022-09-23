@@ -75,6 +75,8 @@ public class FinalResult
             string filtro4 = u.Replace(filtro3, "u");
             string filtro = n.Replace(filtro4, "n");
 
+            snipett.Add ("");
+
             //filtro : string con el contenido del documento en minusculas y sin tildes
 
             for (int r = 0; r < MostImportantsWords.Count; r++)
@@ -87,25 +89,24 @@ public class FinalResult
                         {
                             if (filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") + 300 > filtro.Length)
                             {
-                                snipett.Add(DataBase.Content[y].Substring(0, filtro.Length));
+                                snipett[y] = (DataBase.Content[y].Substring(0, filtro.Length));
                             }
                             else
                             {
-                                snipett.Add(DataBase.Content[y].Substring(0, filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") + 300));
+                                snipett[y] = (DataBase.Content[y].Substring(0, filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") + 300));
                             }
                         }
                         else
                         {
                             if (filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") + 300 > filtro.Length)
                             {
-                                snipett.Add(DataBase.Content[y].Substring(filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") - 300, 300 + filtro.Length - filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ")));
+                                snipett[y] = (DataBase.Content[y].Substring(filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") - 300, 300 + filtro.Length - filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ")));
                             }
                             else
                             {
-                                snipett.Add(DataBase.Content[y].Substring(filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") - 300, 600));
+                                snipett[y] = (DataBase.Content[y].Substring(filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") - 300, 600));
                             }
                         }
-                        break;
                     } 
                     else if (DataBase.Documents[y].ContainsKey(MostImportantsWords.ElementAt(r).Key) && filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") != -1 && filtro.IndexOf(MostImportantsWords.ElementAt(r).Key) == 0)
                     {
@@ -113,25 +114,24 @@ public class FinalResult
                         {
                             if (filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") + 300 > filtro.Length)
                             {
-                                snipett.Add(DataBase.Content[y].Substring(0, filtro.Length));
+                                snipett[y] = (DataBase.Content[y].Substring(0, filtro.Length));
                             }
                             else
                             {
-                                snipett.Add(DataBase.Content[y].Substring(0, filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") + 300));
+                                snipett[y] = (DataBase.Content[y].Substring(0, filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") + 300));
                             }
                         }
                         else
                         {
                             if (filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") + 300 > filtro.Length)
                             {
-                                snipett.Add(DataBase.Content[y].Substring(filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") - 300, 300 + filtro.Length - filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ")));
+                                snipett[y] = (DataBase.Content[y].Substring(filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") - 300, 300 + filtro.Length - filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ")));
                             }
                             else
                             {
-                                snipett.Add(DataBase.Content[y].Substring(filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") - 300, 600));
+                                snipett[y] = (DataBase.Content[y].Substring(filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") - 300, 600));
                             }
                         }
-                        break;
                     } 
                     else if (DataBase.Documents[y].ContainsKey(MostImportantsWords.ElementAt(r).Key) && filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) != -1 && filtro.IndexOf(MostImportantsWords.ElementAt(r).Key) + MostImportantsWords.ElementAt(r).Key.Length == filtro.Length)
                     {
@@ -139,35 +139,31 @@ public class FinalResult
                         {
                             if (filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) + 300 > filtro.Length)
                             {
-                                snipett.Add(DataBase.Content[y].Substring(0, filtro.Length));
+                                snipett[y] = (DataBase.Content[y].Substring(0, filtro.Length));
                             }
                             else
                             {
-                                snipett.Add(DataBase.Content[y].Substring(0, filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) + 300));
+                                snipett[y] = (DataBase.Content[y].Substring(0, filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) + 300));
                             }
                         }
                         else
                         {
                             if (filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) + 300 > filtro.Length)
                             {
-                                snipett.Add(DataBase.Content[y].Substring(filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) - 300, 300 + filtro.Length - filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key)));
+                                snipett[y] = (DataBase.Content[y].Substring(filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) - 300, 300 + filtro.Length - filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key)));
                             }
                             else
                             {
-                                snipett.Add(DataBase.Content[y].Substring(filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) - 300, 600));
+                                snipett[y] = (DataBase.Content[y].Substring(filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) - 300, 600));
                             }
                         }
-                        break;
                     }
                     else{
-                        score[y] = 0;
-                        snipett.Add("");
-                        break;
+                        continue;
                     }
                 }
                 else
                 {
-                    snipett.Add("");
                     break;
                 }
                     
@@ -189,58 +185,127 @@ public class FinalResult
             SearchItem temp = new SearchItem(titles[l], snipett[l], score[l]);
             results.Add(temp);
         }
-          
-        foreach (var item in query)         //Uso de Operadores
+
+        int count = 0;
+        foreach (var k in query)
         {
-            if (item == '!')
+            if (k == '!' || k == '~' || k == '^' || k == '*')
             {
-                for (var a = 0; a < results.Count; a++)
-                {
-                    float added = Operators.Ops(query, "!" , results[a].Score, a);
-                    string snip = "";
-                    if (added != 0)
-                    {
-                        snip = results[a].Snippet;
-                    }
-                    
-                    results[a] = new SearchItem(results[a].Title, snip , added);
-                }
-            }
-            else if (item == '^')
-            {
-                for (var a = 0; a < results.Count; a++)
-                {
-                    float added = Operators.Ops(query, "^", results[a].Score, a);
-                    string snip = "";
-                    if (added != 0)
-                    {
-                        snip = results[a].Snippet;
-                    }
-                    
-                    results[a] = new SearchItem(results[a].Title, snip , added);
-                }
-            }
-            else if (item == '~')
-            {
-                for (var a = 0; a < results.Count; a++)
-                {
-                    float added = Operators.Ops2(query, "~" , results[a].Score, a);
-                    results[a] = new SearchItem(results[a].Title, results[a].Snippet, added);
-                }
-            }
-            else if (item == '*')
-            {
-                for (var a = 0; a < results.Count; a++)
-                {
-                    
-                    float added = Operators.Ops(query, "*", results[a].Score, a);
-                    
-                    
-                    results[a] = new SearchItem(results[a].Title, results[a].Snippet , added);
-                }
+                count = 1;
+                break;
             }
         }
 
+        if (count != 0)
+        {  
+            for (int item = 0; item < query.Length; item++)         //Uso de Operadores
+            {
+                if (item == 0)
+                {
+                    if (query[item] == '!')
+                    {
+                        for (var a = 0; a < results.Count; a++)
+                        {
+                            float added = Operators.Ops(query, "!" , results[a].Score, a, item);
+                            string snip = "";
+                            if (added != 0)
+                            {
+                                snip = results[a].Snippet;
+                            }
+                            
+                            results[a] = new SearchItem(results[a].Title, snip , added);
+                        }
+                    }
+                    else if (query[item] == '^')
+                    {
+                        for (var a = 0; a < results.Count; a++)
+                        {
+                            float added = Operators.Ops(query, "^", results[a].Score, a, item);
+                            string snip = "";
+                            if (added != 0)
+                            {
+                                snip = results[a].Snippet;
+                            }
+                            
+                            results[a] = new SearchItem(results[a].Title, snip , added);
+                        }
+                    }
+                    else if (query[item] == '~')
+                    {
+                        for (var a = 0; a < results.Count; a++)
+                        {
+                            float added = Operators.Ops2(query, "~" , results[a].Score, a, item);
+                            results[a] = new SearchItem(results[a].Title, results[a].Snippet, added);
+                        }
+                    }
+                    else if (query[item] == '*')
+                    {
+                        for (var a = 0; a < results.Count; a++)
+                        {
+                            
+                            float added = Operators.Ops3(query, "*", results[a].Score, a, item);
+                            
+                            
+                            results[a] = new SearchItem(results[a].Title, results[a].Snippet , added);
+                        }
+                    }
+                }
+                else if (query[item] == ' ')
+                {
+                    item++;
+                    if (item == query.Length)
+                    {
+                        break;
+                    }
+                    if (query[item] == '!')
+                    {
+                        for (var a = 0; a < results.Count; a++)
+                        {
+                            float added = Operators.Ops(query, "!" , results[a].Score, a, item);
+                            string snip = "";
+                            if (added != 0)
+                            {
+                                snip = results[a].Snippet;
+                            }
+                            results[a] = new SearchItem(results[a].Title, snip , added);
+                        }
+                    }
+                    else if (query[item] == '^')
+                    {
+                        for (var a = 0; a < results.Count; a++)
+                    {
+                            float added = Operators.Ops(query, "^", results[a].Score, a, item);
+                            string snip = "";
+                            if (added != 0)
+                            {
+                                snip = results[a].Snippet;
+                            }
+                            
+                            results[a] = new SearchItem(results[a].Title, snip , added);
+                        }
+                    }
+                    else if (query[item] == '~')
+                    {
+                        for (var a = 0; a < results.Count; a++)
+                        {
+                            float added = Operators.Ops2(query, "~" , results[a].Score, a, item);
+                            results[a] = new SearchItem(results[a].Title, results[a].Snippet, added);
+                        }
+                    }
+                    else if (query[item] == '*')
+                    {
+                        for (var a = 0; a < results.Count; a++)
+                        {
+                            
+                            float added = Operators.Ops3(query, "*", results[a].Score, a, item);
+                            
+                            
+                            results[a] = new SearchItem(results[a].Title, results[a].Snippet , added);
+                        }
+                    }
+                }
+            }
+        }
         var docs = results.OrderByDescending(x => x.Score).ToArray();
 
         return docs;    //retorna el array con los documentos que coinciden con la busqueda
