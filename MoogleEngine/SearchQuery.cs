@@ -50,8 +50,8 @@ public class SearchQuery
         double TI = 0;
         float TFIDF = 0;
         double length = QueryFixed.Count;
-        int length2 = DataBase.Frecuency.Count;
-        int length3 = DataBase.Documents.Count;
+        double length2 = DataBase.Frecuency.Count;
+        double length3 = DataBase.Documents.Count;
         string Suggest = "";
 
         for (int i = 0; i < length; i++)
@@ -64,14 +64,14 @@ public class SearchQuery
             {
                 for (var g = 0; g < length2; g++)
                 {
-                    int val2 = DataBase.Frecuency.ElementAt(g).Value;
+                    double val2 = DataBase.Frecuency.ElementAt(g).Value;
                     string key2 = DataBase.Frecuency.ElementAt(g).Key;
 
                     if (compare[g]!=0 || key != key2)
                     {
                         continue;
                     }
-                    
+
                     double TF = val/length;
                     double IDF = Math.Log10(length3/val2);
                     TI = TF * IDF;
@@ -86,7 +86,7 @@ public class SearchQuery
                 string Possible = Suggestion(key);
                 for (var g = 0; g < length2; g++)
                 {
-                    int val2 = DataBase.Frecuency.ElementAt(g).Value;
+                    double val2 = DataBase.Frecuency.ElementAt(g).Value;
                     string key2 = DataBase.Frecuency.ElementAt(g).Key;
 
                     if (compare[g]!=0 || key != key2)
