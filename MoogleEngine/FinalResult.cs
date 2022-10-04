@@ -51,11 +51,11 @@ public class FinalResult
         
         for (int w = 0; w < DataBase.Content.Length; w++)  //Añade el titulo de cada documento coincidente con la busqueda
         {
-            string temp = "";
             string url = Directory.GetCurrentDirectory();                                                      
             string[] names = Directory.EnumerateFiles(url.Substring(0,url.Length-13)+"/Content").ToArray();
-            temp = names[w];
-            titles.Add(temp.Substring(temp.LastIndexOf("\\")+1).Substring(0,temp.Substring(temp.LastIndexOf("\\")+1).Length-4));
+            string name = Path.GetFileNameWithoutExtension(names[w]);
+            titles.Add(name);
+            
         }
 
         for (int y = 0; y < DataBase.Content.Length; y++)    //Añade una porcion del texto por cada documento coincidente con la busqueda, el mismo muestra una coincidencia con la busqueda
