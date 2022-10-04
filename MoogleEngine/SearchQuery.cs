@@ -118,12 +118,6 @@ public class SearchQuery
             }       
         }
         YouMeanThis = Suggest;
-            
-        if(compare.Max() == 0)
-        {     
-            var tmp = new float[0];
-            compare = tmp.ToArray();
-        }
     
         return compare;
     }
