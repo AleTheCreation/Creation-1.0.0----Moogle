@@ -77,7 +77,9 @@ public class Operators
     {
         
         string word = OperatorWord(query, oper, OperatorPos);
+        if (word == "") return score; 
         float sim = score;
+       
         
         
         if (sim == 0)
@@ -116,7 +118,9 @@ public class Operators
     public static float Ops2 (string query, string oper, float score, int pos, int OperatorPos)
     {
         var words = OperatorWords(query, oper, OperatorPos);
+        if (words.Count == 0) return score; 
         float sim = score;
+      
         if (words.Count / 2 != 1)
         {
             return sim;
@@ -154,33 +158,36 @@ public class Operators
             }
         
             var min = distances.Min();
-            sim += (float)1/min;            
+            sim += ((float)1/min + 1);            
         }            
         
-        if (sim == score) // Si alguna de las Wordsabras no se encuentran disminuye el score del documento
-        {
-            sim = sim/2;
-        }
+        
         
         return sim;
     }
     public static float Ops3 (string query, string oper, float score, int pos, int OperatorPos)
     {
         string word = OperatorWord(query, oper, OperatorPos);
+        if (word == "") return score; 
         int index = 0;
         float sim = score;
+        
         if (sim == 0)
         {
             return sim;
         }
-        foreach (var item in query)
+        if (DataBase.Documents[pos].ContainsKey( word))
         {
-            if (item == oper[0])
+            for (int i = 0; i < query.Length; i++)
             {
-                index++;
+                if (query[i] == '*')
+                {
+                    index++;
+                }
             }
+            sim += index;
+            return sim;
         }
-        sim = (sim+1) * index;
         return sim;
 
     }

@@ -11,7 +11,21 @@ public static class Moogle
             Search[0] = answer;
             return new SearchResult (Search , "");
         }
+        if (query == "")
+        {
+            var Search = new SearchItem[1];
+            SearchItem answer = new SearchItem ("Que desea buscar?", "", 1) ;
+            Search[0] = answer;
+            return new SearchResult (Search , "");
+        }
         var Searching = new SearchQuery (query);
+        if (SearchQuery.QueryFixed.Count == 0)
+        {
+            var Search = new SearchItem[1];
+            SearchItem answer = new SearchItem ("Que desea buscar?", "", 1) ;
+            Search[0] = answer;
+            return new SearchResult (Search , "");
+        }
        
         SearchItem[] Test1 = FinalResult.buscar(query);
         var Test2 = Test1.ToList();

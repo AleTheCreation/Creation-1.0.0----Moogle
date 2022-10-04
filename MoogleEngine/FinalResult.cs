@@ -196,12 +196,11 @@ public class FinalResult
             }
         }
 
-        if (count != 0)
+        if (count != 0 && SearchQuery.QueryFixed.Count != 0)
         {  
             for (int item = 0; item < query.Length; item++)         //Uso de Operadores
             {
-                if (item == 0)
-                {
+               
                     if (query[item] == '!')
                     {
                         for (var a = 0; a < results.Count; a++)
@@ -249,61 +248,7 @@ public class FinalResult
                             results[a] = new SearchItem(results[a].Title, results[a].Snippet , added);
                         }
                     }
-                }
-                else if (query[item] == ' ')
-                {
-                    item++;
-                    if (item == query.Length)
-                    {
-                        break;
-                    }
-                    if (query[item] == '!')
-                    {
-                        for (var a = 0; a < results.Count; a++)
-                        {
-                            float added = Operators.Ops(query, "!" , results[a].Score, a, item);
-                            string snip = "";
-                            if (added != 0)
-                            {
-                                snip = results[a].Snippet;
-                            }
-                            results[a] = new SearchItem(results[a].Title, snip , added);
-                        }
-                    }
-                    else if (query[item] == '^')
-                    {
-                        for (var a = 0; a < results.Count; a++)
-                    {
-                            float added = Operators.Ops(query, "^", results[a].Score, a, item);
-                            string snip = "";
-                            if (added != 0)
-                            {
-                                snip = results[a].Snippet;
-                            }
-                            
-                            results[a] = new SearchItem(results[a].Title, snip , added);
-                        }
-                    }
-                    else if (query[item] == '~')
-                    {
-                        for (var a = 0; a < results.Count; a++)
-                        {
-                            float added = Operators.Ops2(query, "~" , results[a].Score, a, item);
-                            results[a] = new SearchItem(results[a].Title, results[a].Snippet, added);
-                        }
-                    }
-                    else if (query[item] == '*')
-                    {
-                        for (var a = 0; a < results.Count; a++)
-                        {
-                            
-                            float added = Operators.Ops3(query, "*", results[a].Score, a, item);
-                            
-                            
-                            results[a] = new SearchItem(results[a].Title, results[a].Snippet , added);
-                        }
-                    }
-                }
+               
             }
         }
         var docs = results.OrderByDescending(x => x.Score).ToArray();
