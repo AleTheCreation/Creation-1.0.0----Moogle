@@ -27,21 +27,21 @@ public class SearchQuery
     {
         
         string[] Fixed = DataBase.WithoutSpaces(query);
-        var CantPal = new Dictionary<string,int>(); 
+        var Words = new Dictionary<string,int>(); 
         
         for (var k = 0; k <Fixed.Length; k++)
         {
-            if (CantPal.ContainsKey(Fixed[k]))
+            if (Words.ContainsKey(Fixed[k]))
             {
-                CantPal[Fixed[k]]++;
+                Words[Fixed[k]]++;
             }
             else
             {
-                CantPal.Add(Fixed[k],1);
+                Words.Add(Fixed[k],1);
             }
         }
 
-        return CantPal;
+        return Words;
     }
 
     private static float[] Matches ()
@@ -53,6 +53,7 @@ public class SearchQuery
         double length2 = DataBase.Frecuency.Count;
         double length3 = DataBase.Documents.Count;
         string Suggest = "";
+        var Keys = DataBase.Frecuency.Keys.ToArray();
 
         for (int i = 0; i < length; i++)
         {
@@ -62,45 +63,25 @@ public class SearchQuery
 
             if (DataBase.Frecuency.ContainsKey(key))
             {
-                for (var g = 0; g < length2; g++)
-                {
-                    double val2 = DataBase.Frecuency.ElementAt(g).Value;
-                    string key2 = DataBase.Frecuency.ElementAt(g).Key;
-
-                    if (compare[g]!=0 || key != key2)
-                    {
-                        continue;
-                    }
-
-                    double TF = val/length;
-                    double IDF = Math.Log10(length3/val2);
-                    TI = TF * IDF;
-                    TFIDF = (float)TI;
-                    compare[g] = TFIDF ;
-                    break;                    
-                }
+                int index = Array.IndexOf(Keys, key);
+                double val2 = DataBase.Frecuency.ElementAt(index).Value;
+                double TF = val/length;
+                double IDF = Math.Log10(length3/val2);
+                TI = TF * IDF;
+                TFIDF = (float)TI;
+                compare[index] = TFIDF ;  
                 temp = key;
             }
             else
             {
                 string Possible = Suggestion(key);
-                for (var g = 0; g < length2; g++)
-                {
-                    double val2 = DataBase.Frecuency.ElementAt(g).Value;
-                    string key2 = DataBase.Frecuency.ElementAt(g).Key;
-
-                    if (compare[g]!=0 || key != key2)
-                    {
-                        continue;
-                    }
-                    
-                    double TF = val/length;
-                    double IDF = Math.Log10(length3/val2);
-                    TI = TF * IDF;
-                    TFIDF = (float)TI;
-                    compare[g] = TFIDF ;
-                    break;                    
-                }
+                int index = Array.IndexOf(Keys, Possible);
+                double val2 = DataBase.Frecuency.ElementAt(index).Value;
+                double TF = val/length;
+                double IDF = Math.Log10(length3/val2);
+                TI = TF * IDF;
+                TFIDF = (float)TI;
+                compare[index] = TFIDF ;
                 temp = Possible;
 
             } 

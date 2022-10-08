@@ -24,8 +24,6 @@ namespace MoogleEngine;
             if (Content.Length != 0)
             {
                 Documents = Words4Docs();
-                Frecuency = Frec();
-                Position = List();
                 MatrixTFIDF = TheMatrix();  
             }   
         }
@@ -83,7 +81,9 @@ namespace MoogleEngine;
         private static List<Dictionary<string,int>> Words4Docs ()   //Lista que almacena la cantidad de repeticiones de cada palabra por documento
         {     
             var Frec = new List<Dictionary<string,int>>();  
-
+            Dictionary<string,int> FrecWordInDocs = new Dictionary<string, int>();  
+            var dic = new Dictionary<string,int>();
+            int temp = 0;
             for(int i = 0;i < Content.Length; i++)
             {                  
                 List<string> words = WithoutSpaces(Content[i]).ToList();               
@@ -102,17 +102,7 @@ namespace MoogleEngine;
                     }
                 }
                 Frec.Add(WordsFrec);
-
-            }
-            return Frec;
-        }
-        private static Dictionary<string,int> Frec ()
-        {
-            Dictionary<string,int> FrecWordInDocs = new Dictionary<string, int>();   
-            
-            for(int i = 0; i < Documents.Count; i++)
-            {
-                foreach (var j in Documents[i])
+                foreach (var j in WordsFrec)
                 {
                     if(FrecWordInDocs.ContainsKey(j.Key))
                     {
@@ -122,28 +112,19 @@ namespace MoogleEngine;
                     {
                         FrecWordInDocs.Add(j.Key, 1);
                     }
+                            if(!dic.ContainsKey(j.Key))
+                            {
+                                dic.Add(j.Key, temp);
+                                temp++;
+                            }
                 }
-            }
-            return FrecWordInDocs;
-        }
-        private static Dictionary<string,int> List ()
-        {
-            var dic = new Dictionary<string,int>();
-            int temp = 0;
 
-            for(int i = 0; i< Documents.Count; i++)
-            {
-                foreach (var j in Documents[i])
-                {
-                    if(!dic.ContainsKey(j.Key))
-                    {
-                        dic.Add(j.Key, temp);
-                        temp++;
-                    }            
-                }   
             }
-            return dic;
+            Frecuency = FrecWordInDocs;
+            Position = dic;
+            return Frec;
         }
+     
         private static float[,] TheMatrix ()
         { 
             float[,] matrix = new float[Documents.Count, Frecuency.Count];
