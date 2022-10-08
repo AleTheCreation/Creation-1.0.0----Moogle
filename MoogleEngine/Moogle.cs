@@ -27,7 +27,7 @@ public static class Moogle
             return new SearchResult (Search , "");
         }
        
-        SearchItem[] Test1 = FinalResult.buscar(query);
+        SearchItem[] Test1 = FinalResult.Searching(query);
         var Test2 = Test1.ToList();
             
         for (var i = 0; i < Test1.Length; i++)

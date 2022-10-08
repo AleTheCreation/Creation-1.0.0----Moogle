@@ -7,7 +7,7 @@ namespace MoogleEngine;
 
 public class FinalResult
 {
-    public static SearchItem[] buscar (string query)
+    public static SearchItem[] Searching (string query)
     {  
         var score = new List<float>();
         var titles = new List<string>();
@@ -60,7 +60,7 @@ public class FinalResult
 
         for (int y = 0; y < DataBase.Content.Length; y++)    //Añade una porcion del texto por cada documento coincidente con la busqueda, el mismo muestra una coincidencia con la busqueda
         {
-            var filtrado = DataBase.Content[y].ToLower();
+            var filt = DataBase.Content[y].ToLower();
             Regex a =new Regex("[á|à|ä|â]");
             Regex e =new Regex("[é|è|ë|ê]");
             Regex i =new Regex("[í|ì|ï|î]");
@@ -68,99 +68,102 @@ public class FinalResult
             Regex u =new Regex("[ú|ù|ü|û]");
             Regex n =new Regex("[ñ|Ñ]");   
                 
-            string filtro0 = a.Replace(filtrado, "a");
-            string filtro1 = e.Replace(filtro0, "e");
-            string filtro2 = i.Replace(filtro1, "i");
-            string filtro3 = o.Replace(filtro2, "o");
-            string filtro4 = u.Replace(filtro3, "u");
-            string filtro = n.Replace(filtro4, "n");
+            string filter0 = a.Replace(filt, "a");
+            string filter1 = e.Replace(filter0, "e");
+            string filter2 = i.Replace(filter1, "i");
+            string filter3 = o.Replace(filter2, "o");
+            string filter4 = u.Replace(filter3, "u");
+            string filter = n.Replace(filter4, "n");
 
             snipett.Add ("");
 
-            //filtro : string con el contenido del documento en minusculas y sin tildes
+            //filter : string con el contenido del documento en minusculas y sin tildes
 
             for (int r = 0; r < MostImportantsWords.Count; r++)
             {   
                 if (score[y] > 0)
-                {              
-                    if (DataBase.Documents[y].ContainsKey(MostImportantsWords.ElementAt(r).Key) && filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") != -1 )
+                {   
+                               
+                    if (DataBase.Documents[y].ContainsKey(MostImportantsWords.ElementAt(r).Key) && filter.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") != -1 )
                     {
-                        if (filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") - 300 < 0)
+                        if (filter.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") - 300 < 0)
                         {
-                            if (filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") + 300 > filtro.Length)
+                            if (filter.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") + 300 > filter.Length)
                             {
-                                snipett[y] = (DataBase.Content[y].Substring(0, filtro.Length));
+                                snipett[y] = (DataBase.Content[y].Substring(0, filter.Length));
                             }
                             else
                             {
-                                snipett[y] = (DataBase.Content[y].Substring(0, filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") + 300));
+                                snipett[y] = (DataBase.Content[y].Substring(0, filter.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") + 300));
                             }
                         }
                         else
                         {
-                            if (filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") + 300 > filtro.Length)
+                            if (filter.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") + 300 > filter.Length)
                             {
-                                snipett[y] = (DataBase.Content[y].Substring(filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") - 300, 300 + filtro.Length - filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ")));
+                                snipett[y] = (DataBase.Content[y].Substring(filter.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") - 300, 300 + filter.Length - filter.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ")));
                             }
                             else
                             {
-                                snipett[y] = (DataBase.Content[y].Substring(filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") - 300, 600));
+                                snipett[y] = (DataBase.Content[y].Substring(filter.IndexOf(" " + MostImportantsWords.ElementAt(r).Key + " ") - 300, 600));
                             }
                         }
                     } 
-                    else if (DataBase.Documents[y].ContainsKey(MostImportantsWords.ElementAt(r).Key) && filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") != -1 && filtro.IndexOf(MostImportantsWords.ElementAt(r).Key) == 0)
+                    else if (DataBase.Documents[y].ContainsKey(MostImportantsWords.ElementAt(r).Key) && filter.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") != -1 && filter.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") == 0  )
                     {
-                        if (filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") - 300 < 0)
+                        if (filter.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") - 300 < 0)
                         {
-                            if (filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") + 300 > filtro.Length)
+                            if (filter.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") + 300 > filter.Length)
                             {
-                                snipett[y] = (DataBase.Content[y].Substring(0, filtro.Length));
+                                snipett[y] = (DataBase.Content[y].Substring(0, filter.Length));
                             }
                             else
                             {
-                                snipett[y] = (DataBase.Content[y].Substring(0, filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") + 300));
+                                snipett[y] = (DataBase.Content[y].Substring(0, filter.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") + 300));
                             }
                         }
                         else
                         {
-                            if (filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") + 300 > filtro.Length)
+                            if (filter.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") + 300 > filter.Length)
                             {
-                                snipett[y] = (DataBase.Content[y].Substring(filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") - 300, 300 + filtro.Length - filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ")));
+                                snipett[y] = (DataBase.Content[y].Substring(filter.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") - 300, 300 + filter.Length - filter.IndexOf(MostImportantsWords.ElementAt(r).Key + " ")));
                             }
                             else
                             {
-                                snipett[y] = (DataBase.Content[y].Substring(filtro.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") - 300, 600));
+                                snipett[y] = (DataBase.Content[y].Substring(filter.IndexOf(MostImportantsWords.ElementAt(r).Key + " ") - 300, 600));
                             }
                         }
                     } 
-                    else if (DataBase.Documents[y].ContainsKey(MostImportantsWords.ElementAt(r).Key) && filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) != -1 && filtro.IndexOf(MostImportantsWords.ElementAt(r).Key) + MostImportantsWords.ElementAt(r).Key.Length == filtro.Length)
+                    else if (DataBase.Documents[y].ContainsKey(MostImportantsWords.ElementAt(r).Key) && filter.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) != -1 && filter.IndexOf(MostImportantsWords.ElementAt(r).Key) + MostImportantsWords.ElementAt(r).Key.Length == filter.Length )
                     {
-                        if (filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) - 300 < 0)
+                        if (filter.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) - 300 < 0)
                         {
-                            if (filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) + 300 > filtro.Length)
+                            if (filter.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) + 300 > filter.Length)
                             {
-                                snipett[y] = (DataBase.Content[y].Substring(0, filtro.Length));
+                                snipett[y] = (DataBase.Content[y].Substring(0, filter.Length));
                             }
                             else
                             {
-                                snipett[y] = (DataBase.Content[y].Substring(0, filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) + 300));
+                                snipett[y] = (DataBase.Content[y].Substring(0, filter.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) + 300));
                             }
                         }
                         else
                         {
-                            if (filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) + 300 > filtro.Length)
+                            if (filter.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) + 300 > filter.Length)
                             {
-                                snipett[y] = (DataBase.Content[y].Substring(filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) - 300, 300 + filtro.Length - filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key)));
+                                snipett[y] = (DataBase.Content[y].Substring(filter.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) - 300, 300 + filter.Length - filter.IndexOf(" " + MostImportantsWords.ElementAt(r).Key)));
                             }
                             else
                             {
-                                snipett[y] = (DataBase.Content[y].Substring(filtro.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) - 300, 600));
+                                snipett[y] = (DataBase.Content[y].Substring(filter.IndexOf(" " + MostImportantsWords.ElementAt(r).Key) - 300, 600));
                             }
                         }
                     }
-                    else{
-                        continue;
-                    }
+                   
+                    
+                    
+                    
+                    
                 }
                 else
                 {
